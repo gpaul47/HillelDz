@@ -1,0 +1,871 @@
+-----------------------------------------------------------------------------
+ДЗ 28.
+
+V. Java
+Можно ли в Java унаследоваться сразу от двух классов, или,
+поддерживается ли в Java “множественное наследование” ?
+
+Задание
+1.	Описать интерфейсы IPersonalInfo и ICollegeInfo.
+2.	Описать интерфейс IStudentInfo, расчширающий интерфейсы IPersonalInfo и ICollegeInfo.
+3.	Описать класс Human.
+4.	Описать класс Student.
+5.	Класс Student, должен наследоваться от класса Human, и реализовывать интерфейс IStudentInfo.
+
+Ответом на задание, прислать ссылку на репозиторий GitHub, с соответствующими *.java файлами.
+Для данного задания, должна быть создана отдельная ветка с име-нем: ‘java24’.
+
+
+-------------------------------------------/
+public class Main { //Dz28
+    public static void main(String[] args) {
+        Student jon = new Student();
+        jon.studentSay();
+    }
+}
+-------------------------------------------/
+public interface IStudentInfo {
+    void studentSay();
+}
+
+public interface IPersonalInfo extends IStudentInfo {
+    @Override
+    void studentSay();
+}
+
+public interface ICollegeInfo extends IStudentInfo {
+    @Override
+    void studentSay();
+}
+______________________________________________/
+public class Human implements IStudentInfo {
+    @Override
+    public void studentSay() {
+        System.out.println("Hello world. (Dz28)");
+    }
+}
+
+public class Student extends Human {
+
+}
+______________________________________________/
+
+
+-----------------------------------------------------------------------------
+ДЗ 27.
+
+
+Если абстрактный класс, должен содержать хотя бы один абстрактный метод,
+то какими свойствами обладает Interface в Java?
+
+Что отличается с точки зрения объявления переменных в классе и в интерфейсе?
+Если класс реализует интерфейс, то к чему это обязывает?
+о есть, что должно непремен-но содержаться в классе, если класс реализует интерфейс?
+
+Доступно ли в Java множественное наследование?
+Может ли класс реализовывать более одного интерфейса?
+
+Как мы знаем, для обычного класса, мы можем создать объект (экземпляр класса),
+а мо-жем ли мы таким же образом "создать" экземпляр интерфейса?
+
+Задание
+Исследовать, справедливо ли утверждение:
+Если метод принимает в качестве пара-метра интерфейсную переменную,
+то данный метод, способен принимать, в качестве аргумента, объект любого класса,
+реализующего данный интерфейс.
+
+Создать два НЕ связанных друг с другом класса: Wind и River.
+А также, создать интерфейс: IElement.
+В интерфейсе, описать сигнатуру абстрактного метода String getElementName();
+Реализовать данный интерфейс в обоих классах.
+Метод getElementName(), должен возвращать значение поля elementName, которое,
+для класса Wind, будет "Wind", а для класса River, будет "River", соответственно.
+
+В том же пакете (package), создать класс Main. И описать в нем метод, с именем:
+identifyElement, который должен принимать, в качестве параметра, переменную типа IElement,
+и выводить на экран название природной стихии (река/ветер), соответствующее переданному
+в качестве аргумента объекту.
+
+Если, в качестве аргумента, был передан объект класса River,
+то в консоль должна быть выведена одноименная строка, и то же самое для класса Wind.
+
+Ответом на задание, прислать скриншот с кодом, упомянутого метода,
+а также ссылку на репозиторий GitHub, с соответствующими *.java файлами.
+Для данного задания, должна быть создана отдельная ветка с именем: ‘java24’.
+
+
+
+
+public class Main { //Dz27
+    public static void main(String[] args) {
+        Wind wind = new Wind();
+        River river = new River();
+        wind.getElementName();
+        river.getElementName();
+        System.out.println();
+       identifyElement(wind);
+       identifyElement(river);
+
+    }
+    public static void identifyElement(IElement i) {
+        i.getElementName();
+    }
+}
+
+
+public interface IElement {
+
+    public String getElementName();
+
+}
+
+
+public class River implements IElement {
+    @Override
+    public String getElementName() {
+        System.out.println("River");
+        return null;
+    }
+}
+
+
+public class Wind implements IElement {
+    @Override
+    public String getElementName() {
+        System.out.println("Wind");
+        return null;
+    }
+}
+
+
+
+-----------------------------------------------------------------------------
+//VI. Java
+//Что называется "полиморфизмом" в живой природе, и в языках программирования?
+//
+//Реализовать принцип полиморфизма, на базе предыдущего задания. Описать метод, принимающий в виде параметра объект класса Animal.
+// Но, в зависимости от того, объект какого класса (Cat или Dog), будет фактически передан в качестве аргумента, выводит в консоль тот "звук",
+// который издает одно, либо другое животное.
+//Ответом на задание, прислать скриншот с кодом, упомянутого метода, а также ссылку на репозиторий GitHub,
+// с соответствующими *.java файлами. Для данного задания, должна быть создана отдельная ветка с именем: ‘java23’.
+
+ДЗ 25-26
+public class Main { //Dz26
+    public static void main(String[] args) {
+        Dog dog1 = new Dog();
+        Cat cat1 = new Cat();
+        System.out.println();
+        System.out.println("public static void test(Animal animal)");
+        test(dog1);
+        test(cat1);
+        System.out.println("Finish");
+        test(dog1);
+    }
+    public static void test(Animal animal) {
+        animal.makeSound();
+        animal.run();
+    }
+}
+///
+public abstract class Animal {
+    public abstract void makeSound();
+
+    public void run() {
+    }
+
+    Animal() {
+
+    }
+
+}
+//
+public class Dog extends Animal {
+
+    @Override
+    public void makeSound() {
+        super.run();
+        System.out.println("Dog barking");
+    }
+
+    public void run() {
+        super.run();
+        System.out.println("Dog running...");
+    }
+}
+///
+public class Cat extends Animal {
+
+    @Override
+    public void makeSound() {
+        super.run();
+        System.out.println("Cat meows.. Meow!");
+    }
+
+    public void run() {
+        super.run();
+        System.out.println("Cat running...");
+    }
+}
+//
+-----------------------------------------------------------------------------
+ДЗ 24.
+
+public class Car {
+    protected String brand;
+    public Car() {
+    }
+    public Car(String brand) {
+        this.brand = brand;
+    }
+    public void print() {
+        System.out.println("It's Brand.");
+    }
+}
+
+
+/////////////////////
+
+public class Volvo extends Car {
+    public Volvo(String brand) {
+        super(brand);
+    }
+    public void printVolvo() {
+        System.out.println("It's Volvo.");
+    }
+}
+
+
+Mazda
+
+public class Mazda extends Car{
+    public Mazda(String brand){
+        super(brand);
+    }
+    public void printMazda(){
+        System.out.println("It's Mazda.");
+    }
+}
+
+Main
+
+public class Main { //Dz24
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.print();
+        Volvo xc90 = new Volvo("XC90 ");
+        xc90.printVolvo();
+        xc90.print();
+        Mazda cx17 = new Mazda("CX17");
+        cx17.print();
+        System.out.println(cx17.brand + " " + xc90.brand);
+        car.print();
+    }
+}
+//Как формулируется определение понятия “Наследование” (Inheritance)?
+//Для чего в ООП применяется "Наследование", какие преимущества это дает?
+//Приведите свой пример, когда применение наследования будет оправдано.
+
+-----------------------------------------------------------------------------
+ДЗ 23.
+
+public class Main { //Dz23
+    public static void main(String[] args) {
+        Car volvo1 = new Car("Volvo1");
+        volvo1.print();
+        Car volvoCopy = new Car("Volvo2");
+        volvoCopy.print();
+        volvoCopy.print();
+
+
+    }
+}
+
+class Car {
+    private String brand;
+
+    Car(String brand) {
+        this.brand = brand;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    Car(Car carcoppy1) {
+      brand = carcoppy1.brand;
+        System.out.println(carcoppy1.brand);
+    }
+    void print() {
+        System.out.println(brand + " " + "Brand");
+    }
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////
+public class Main { //Dz23
+
+    public static void main(String[] args) {
+        Car car01 = new Car("Brand (car1)");
+        Car car02 = new Car(car01);
+        Car car3 = new Car(car02);
+        car02.setBrand("Brand (car2)");
+        System.out.println(car01);
+        System.out.println(car02);
+        System.out.println(car3);
+    }
+}
+class Car {
+    private String brand;
+
+    public Car(String brand) {
+        this.brand = brand;
+    }
+
+    public Car(Car carClon) {
+        this(carClon.getBrand());
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String toString() {
+        return brand;
+    }
+}
+//Используя соответствующие модификаторы доступа
+// (access modifiers),
+// описать getter и setter для свойства 'Brand', класса 'Car',
+// а также, реализовать конструктор копирования.
+// Который, в качестве входного параметра,
+// будет принимать объект класса 'Car',
+// и, используя служебное слово 'this',
+// а также, 'getter' и 'setter',
+// будет выполнять клонирование объекта.
+
+
+-----------------------------------------------------------------------------
+ДЗ 22.
+public class Main { //Dz22
+    public static void main(String[] args) {
+        Car a8 = new Car("Brand");
+        Car supra = new Car();
+        a8.br1();
+        supra.br1();}}
+class Car {
+    String brand;
+    Car(String brand) {this.brand = brand;}
+    Car() {this("Toyota");}
+    void br1() { System.out.println(brand);}}
+//В том же классе 'Car', из предыдущего задания, добавить еще один конструктор, без параметров.
+//Пусть конструктор без параметров присваивает значение 'Toyota' переменной 'Brand'.
+//Наглядно продемонстрировать разницу, задействуя как первый, так и второй вид конструктора, для создания объектов.
+-----------------------------------------------------------------------------
+ДЗ 21.
+public class Main { //Dz21
+    public static void main(String[] args) {
+        Car a8 = new Car("Brand");
+        a8.Brand();}}
+class Car {
+    String brand;
+    Car(String brand) {
+        this.brand = brand;}
+    void Brand() {
+        System.out.println("A8 this is a car model, of \"Audi\"" + " " + brand + ".");}}
+// Описать класс 'Car', с полем 'Brand'.
+// Описать параметризованный конструктор класса.
+// Использовать в конструкторе служебное слово 'this' для инициализации поля
+// 'Brand', строковым значением.
+// Создать объект класса 'Car' с одновременной инициализацией поля 'Brand'.
+
+
+-----------------------------------------------------------------------------
+ДЗ 20.
+
+public class Main { //Dz20
+    private static final String[] color = {"красный", "желтый", "зеленый"};
+    public static void main(String[] args) {
+        trafficLight(color[2]);}
+    static void trafficLight(String color){
+        switch (color) {
+            case "красный":
+        System.out.println("стоять");
+            break;
+            case "желтый":
+        System.out.println("готовиться");
+            break;
+            case "зеленый":
+        System.out.println("ехать");
+            break;}}}
+//Реализовать метод - "светофор", который принимает на вход "цвет", красный, желтый или зеленый.
+//И, при помощи конструкции "switch", выводит на экран действие,которое соответствует введенному цвету:
+// стоять, готовиться или ехать.
+
+Vers2
+public class Main { //Dz20
+    private static final String[] color = {"красный", "желтый", "зеленый"};
+    public static void main(String[] args) {
+        trafficLight(color[1]);
+        trafficLight(color[0]);
+        trafficLight(color[1]);
+        trafficLight(color[2]);}
+    static void trafficLight(String color){
+        switch (color) {
+            case "красный" -> System.out.println("стоять");
+            case "желтый" -> System.out.println("готовиться");
+            case "зеленый" -> System.out.println("ехать");
+        }
+    }}
+//Реализовать метод - "светофор", который принимает на вход "цвет", красный, желтый или зеленый.
+//И, при помощи конструкции "switch", выводит на экран действие,которое соответствует введенному цвету:
+// стоять, готовиться или ехать.
+-----------------------------------------------------------------------------
+ДЗ 19.
+import java.util.Arrays;
+public class Main { //Dz19
+    static int[] tan = {3, 2, 1, 4, 5, 6, 10, 8, 9, 7};
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(tan));
+        sam2(tan, tan.length, 0);
+        for (int i = 0; i < tan.length; i++)
+            System.out.print(tan[i] + ". ");
+    }
+    static int sam(int[] a, int i, int j)
+    {
+        if (i == j)
+            return i;
+        int k = sam(a, i + 1, j);
+        return (a[i] < a[k])? i : k;
+    }
+    static void sam2(int[] a, int n, int index)
+    {
+        if (index == n)
+            return;
+        int k = sam(a, index, n-1);
+        if (k != index){
+            int temp = a[k];
+            a[k] = a[index];
+            a[index] = temp;
+        }
+        sam2(a, n, index + 1);
+    }
+}
+
+-----------------------------------------------------------------------------
+ДЗ 18.
+import java.util.Arrays;
+public class Main { //Dz18
+    static int[] tan = {3, 2, 1, 4, 5, 6, 10, 8, 9, 7};
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(tan) + " ");
+        sam(tan);}
+    static void sam(int[] tan) {
+        int i = 0;
+        int temp;
+        while (i < tan.length -1) {
+            if (tan[i] > tan[i + 1]) {
+                temp = tan[i];
+                tan[i] = tan[i + 1];
+                tan[i + 1] = temp;
+                i = -1 ;}
+            i++;}
+        for (int s = 0; s <= tan.length - 1; s++) {
+            System.out.print(tan[s] + ". ");}}}
+//Описать метод, принимающий на вход массив целых чисел, и возвращающий массив целых чисел, упорядоченных по возрастанию.
+//Выполнить сортировку массива, задействуя не более одного цикла.
+//Можно использовать любую из циклических конструкций.
+//Для решения задачи сортировки, допускается использование лишь одного цикла.
+//Нельзя использовать вложенные циклы.
+//Нужно использовать магическую силу счетчика цикла.
+-----------------------------------------------------------------------------
+ДЗ 17.
+
+import java.util.Arrays;
+public class Main { //Dz18
+    static int[] tan = {3, 2, 1, 4, 5, 6, 10, 8, 9, 7};
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(tan) + " ");
+        System.out.println();
+        sam(tan);}
+    static void sam(int[] tan) {
+        int i = 0;
+        int temp = 0;
+        while (i < tan.length -1) {
+                if (tan[i] > tan[i + 1]) {
+                    temp = tan[i];
+                    tan[i] = tan[i + 1];
+                    tan[i + 1] = temp;
+                    i = -1 ;}
+                i++;}
+        for (int s = 0; s <= tan.length - 1; s++) {
+            System.out.print(tan[s] + ". ");}}}
+//Описать метод, принимающий на вход массив целых чисел, и возвращающий массив целых чисел, упорядоченных по возрастанию.
+//Выполнить сортировку массива, задействуя не более одного цикла.
+//Можно использовать любую из циклических конструкций.
+//Для решения задачи сортировки, допускается использование лишь одного цикла.
+//Нельзя использовать вложенные циклы.
+//Нужно использовать магическую силу счетчика цикла.
+
+-----------------------------------------------------------------------------
+ДЗ 15.
+
+1
+import java.util.Arrays;
+public class Main { //Dz17
+    static int[] tan = {3, 2, 1, 4, 5, 6, 10, 8, 9, 7};
+    public static void main(String[] args) {
+        System.out.println("not sort While" + " " + Arrays.toString(tan));
+        System.out.println("not sort do While" + " " + Arrays.toString(tan));
+        System.out.println();
+        sam(tan);
+        System.out.println("While" + " " + Arrays.toString(tan));
+        System.out.println("do While" + " " + Arrays.toString(tan));
+    }
+    static void sam(int[] tan) {
+        boolean ss = false;
+        int temp;
+        while (!ss) {
+            ss = true;
+            for (int i = 0; i < tan.length - 1; i++) {
+                if (tan[i] > tan[i + 1]) {
+                    temp = tan[i];
+                    tan[i] = tan[i + 1];
+                    tan[i + 1] = temp;
+                    ss = false;
+                }
+            }
+            boolean s;
+            int temp1;
+        do {s = false;
+            for (int i = 0; i < tan.length - 1; i++) {
+                if (tan[i] > tan[i + 1]) {
+                    s = true;
+                    temp1 = tan[i];
+                    tan[i] = tan[i + 1];
+                    tan[i + 1] = temp1;
+                }
+            }
+        }
+        while (s);
+        }
+    }
+}
+
+//Создать массив из 10-ти целочисленных элементов. Инициализировать значения элементов массива случайными числами, в случайном порядке.
+//Реализовать метод. который на вход принимает массив целочисленных элементов, и возвращает массив упорядоченный по возрастанию.
+//Выполнить сортировку элементов, массива по возрастанию, используя циклы "while" и "do while".
+//Вывести результат работы алгоритма в консоль.
+-----------------------------------------
+01
+import java.util.Arrays;
+public class Main { //Dz17
+    static int[] tan = {3, 2, 1, 4, 5, 6, 10, 8, 9, 7};
+    static int[] tan2 = {7, 2, 1, 4, 5, 6, 10, 8, 9, 3};
+    public static void main(String[] args) {
+        System.out.println("not sort While" + " " + Arrays.toString(tan));
+        System.out.println("not sort do While" + " " + Arrays.toString(tan2));
+        System.out.println();
+        sam(tan);
+        System.out.println("While" + " " + Arrays.toString(tan));
+        System.out.println("do While" + " " + Arrays.toString(tan2));
+    }
+    static void sam(int[] tan) {
+        boolean ss = false;
+        int temp;
+        while (!ss) {
+            ss = true;
+            for (int i = 0; i < tan.length - 1; i++) {
+                if (tan[i] > tan[i + 1]) {
+                    temp = tan[i];
+                    tan[i] = tan[i + 1];
+                    tan[i + 1] = temp;
+                    ss = false;
+                }
+            }
+            boolean s;
+            int temp1;
+        do {s = false;
+            for (int i = 0; i < tan2.length - 1; i++) {
+                if (tan2[i] > tan2[i + 1]) {
+                    s = true;
+                    temp1 = tan2[i];
+                    tan2[i] = tan2[i + 1];
+                    tan2[i + 1] = temp1;
+                }
+            }
+        }
+        while (s);
+        }
+    }
+}
+
+//Создать массив из 10-ти целочисленных элементов. Инициализировать значения элементов массива случайными числами, в случайном порядке.
+//Реализовать метод. который на вход принимает массив целочисленных элементов, и возвращает массив упорядоченный по возрастанию.
+//Выполнить сортировку элементов, массива по возрастанию, используя циклы "while" и "do while".
+//Вывести результат работы алгоритма в консоль.
+-----------------------------------------------------------------------------
+ДЗ 16.
+public class Main { //Dz16
+    static int[] tan = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    public static void main(String[] args) {
+        sam(tan);}
+    static void sam(int[] tan) {
+        for (int i = tan.length - 1; i > 0; i--) { //обратный порядок
+            if (i/2 == 1)
+                continue;
+            if (i == 5)
+                break;
+        System.out.println("tan[" + i + "]=" + tan[i]);}}}
+//Объявить метод, принемающий на вход массив из 10-ти целочисленных элементов (из предыдущего задания).
+//В теле метода, описать цикл for, который будет перебирать элементы массива в обратном порядке, от последнего к первому.
+//Продемонстрировать реализацию цикла с использованием операторов "break" и "continue",
+// которые будут срабатывать по какому-то условию, при проходе по элементам массива.
+//(Например, четные/нечетные значения элементов массива, сравнение больше/меньше и т.п.)
+//Также, в теле метода, в блоке цикла, осуществить вывод элементов массива в консоль (терминал).
+// Разумеется, вывод элементов, будет определяться логикой условий, по которым, будет происходить "break" и "continue".
+
+-----------------------------------------------------------------------------
+ДЗ 15.
+
+public class Main {
+    //Dz15
+    static int[] tan = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    public static void main(String[] args) {
+        sam(tan);
+    }
+    static void sam(int[] tan) {
+        for (int i = 0; i < tan.length; i++) {
+                System.out.println("tan[" + i + "]=" + tan[i]);
+            }}}
+//Описать статический массив целых чисел, состоящий из 10-ти элементов.
+//Используя цикл for, вывести все значения находящиеся в массиве, причем каждое с новой строки.
+-----------------------------------------------------------------------------
+ДЗ 13.
+
+public class Main {
+    //Dz13
+    public static void main(String[] args) {
+        String[] month = {"April", "May", "Jun"};
+        month3(month);
+    }
+    public static void month3(String[] month){
+        System.out.println(month[0] + " " + month[2]);
+    }
+}
+//Создать массив строк, состоящий из 3-х элементов.
+//Присвоить каждому из элементов массива названия месяцев года. Передать данный массив, как параметр в метод.
+//Метод должен вывести на экран (в терминал) в одну строку первый и последний элементы массива, разделенные пробелом.
+...................
+public class Main {
+    //Dz13
+    public static void main(String[] args) {
+        String[] month = {"April", "May", "Jun"};
+
+        System.out.println(month[0] + " " + month[2]);
+    }
+02........................
+public class Main {
+    //Dz13
+    public static void main(String[] args) {
+        String[] month = new String[3];
+        month[0] = "April";
+        month[1] = "May";
+        month[2] = "Jun";
+
+        System.out.println(month[0] + " " + month[2]);
+    }
+-----------------------------------------------------------------------------
+ДЗ 12.
+-------------------------------------------------------------
+public class Main {
+    //Dz12
+    public static void main(String[] args) {
+        System.out.println(Main.str1+lap1(2));
+        System.out.println(Main.str1+lap1(5));
+        System.out.println(Main.str1+lap1(15));
+    }
+    static String str1 = "";
+    static String lap1(int a) {
+        return ((a % 3 == 0 & a % 5 == 0) ? "Multiple of 3 and 15": (a % 5 == 0) ? "Multiple of 3" : "Multiple of 15");
+    }
+}
+-----------------------------------------------------------------------------
+ДЗ 11.
+
+public class Main {
+//Dz11
+    public static void main(String[] args) {
+        System.out.println(Main.str1+lap1(2));
+        System.out.println(Main.str1+lap1(5));
+        System.out.println(Main.str1+lap1(15));
+    }
+    static String str1 = "Multiple of 15";
+    static String lap1(int a) {
+        if (a % 3 == 0 & a % 5 == 0) {
+            return "Multiple of 3 and 15";
+        }
+        else if (a % 5 == 0) {
+            return "Multiple of 3";
+        }
+        /*else {
+            return "Multiple of 15";
+        }*/
+        return str1;
+    }
+}
+
+///////////
+public class Main {
+//Dz11
+    public static void main(String[] args) {
+        System.out.println(Main.str1+lap1(2));
+        System.out.println(Main.str1+lap1(5));
+        System.out.println(Main.str1+lap1(15));
+    }
+    static String str1 = "";
+    static String lap1(int a) {
+        if (a % 3 == 0 & a % 5 == 0) {
+            return "Multiple of 3 and 15";
+        }
+        else if (a % 5 == 0) {
+            return "Multiple of 3";
+        }
+        else {
+            return "Multiple of 15";
+        }}}
+
+
+
+------------------------------------------------
+ public class Main {
+ //Dz11
+     static String str1 = "";
+     static String lap1(int a) {
+     if (a % 3 == 0 & a % 5 == 0) {
+         return "Multiple of 3 and 15";
+     }
+     else if (a % 5 == 0) {
+         return "Multiple of 3";
+     }
+     else {
+         return "Multiple of 15";
+     }
+ }
+
+
+     public static void main(String[] args) {
+         System.out.println(Main.str1+lap1(2));
+         System.out.println(Main.str1+lap1(5));
+         System.out.println(Main.str1+lap1(15));
+
+     }
+ }
+-----------------------------------------------------------------------------
+ДЗ 9.
+public class Main { //Dz9
+    public static void main(String[] args) {
+        System.out.println(myTic());
+    }
+    static String myTic() {
+        String str1 = "Car ";
+        String str2 = "Lex ";
+        int a = 200;
+        String str3 = ".";
+        String result = str1 + str2 + a + str3;
+        return result;
+    }
+}
+
+
+//////////////////////////////////////////
+public class Main {
+
+    static String myTic(String str1, String str2, int a, String str3) {
+
+        String result = str1 + str2 + a + str3;
+        return result;
+    }
+    public static void main(String[] args) {
+        System.out.println(myTic("Car ","speed is ",120,"km/h."));
+    }
+}
+
+-----------------------------------------------------------------------------
+public class Main {
+
+//4
+public static void dz4(int a1, float b1, String str2){
+    System.out.println(a1 + " " + b1 + " " + str2);
+}
+//5
+public static void dZ5(String dz5){
+    System.out.println(dz5);
+
+}
+public void str(String name)
+    {
+        System.out.println(" " + name);
+
+    }
+//6
+public static boolean iny(int aa)
+{
+    if (aa > 5 && aa < 8) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//7
+public static boolean bany(int a, int b)
+{
+    if (a % 2 == 0 & b > a) {
+        return true;
+    } else {
+        return false;
+    }
+}
+    public static void main(String[] arr) {
+        System.out.println("Домашнее задание №3");
+        int a = 10;
+        String b = "+ 25 = 35";
+        System.out.println(a + " " + b);
+        System.out.println("-------------------");
+        System.out.println("Домашнее задание №4");
+        Main.dz4(4, 36.8f, "дз4");
+
+        System.out.println("-------------------");
+        System.out.println("Домашнее задание №5");
+        Main z5 = new Main();
+        z5.dZ5("=)");
+
+        System.out.println("-------------------");
+        Main st = new Main();
+        st.str("Повторение материала.");
+
+        System.out.println("-------------------");
+        System.out.println("Домашнее задание №6");
+        System.out.println(iny(3));
+        System.out.println(iny(6));
+        System.out.println(iny(8));
+
+        System.out.println("-------------------");
+        System.out.println("Домашнее задание №7");
+        System.out.println(bany(2, 4));
+        System.out.println(bany(4, 4));
+    }
+}
