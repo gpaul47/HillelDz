@@ -13,9 +13,10 @@ public class QAA {
 
     public static void main(String[] args) {
 
-        filmDirector(); //Cw29
-        filmYear(); //Dz30
-        filmTitle(); //Dz31
+//        filmDirector(); //Cw29
+//        filmYear(); //Dz30
+//        filmTitle(); //Dz31
+        filmArray(); //Dz32
     }
 
     public static void filmDirector() {
@@ -55,11 +56,11 @@ public class QAA {
         movieSearch.sendKeys("Batman");
         searchBtn.click();
 
-        WebElement directorName = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement apiYear = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(elementToBeClickable(By.id("api_year")));
 
-        System.out.println("Year: " + directorName.getText().substring(5));
-        Assert.assertEquals(directorName.getText().substring(5), expectedYear);
+        System.out.println("Year: " + apiYear.getText().substring(5));
+        Assert.assertEquals(apiYear.getText().substring(5), expectedYear);
 
     }
 
@@ -79,11 +80,43 @@ public class QAA {
         movieSearch.sendKeys("Batman");
         searchBtn.click();
 
-        WebElement directorName = new WebDriverWait(driver, Duration.ofSeconds(11))
+        WebElement apiTitle = new WebDriverWait(driver, Duration.ofSeconds(11))
                 .until(elementToBeClickable(By.id("api_title")));
 
-        System.out.println("Title: " + directorName.getText().substring(6));
-        Assert.assertEquals(directorName.getText().substring(6), expectedTitle);
+        System.out.println("Title: " + apiTitle.getText().substring(6));
+        Assert.assertEquals(apiTitle.getText().substring(6), expectedTitle);
 
+    }
+
+    static void filmArray() { //Dz32
+
+        System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("http://localhost/index.html");
+
+        WebElement movieSearch = driver.findElement(By.id("film_name"));
+        WebElement searchBtn = driver.findElement(By.id("get_api_res_btn"));
+
+        movieSearch.sendKeys(" taxi");
+        searchBtn.click();
+
+        WebElement apiTitle = new WebDriverWait(driver, Duration.ofSeconds(11))
+                .until(elementToBeClickable(By.id("api_title")));
+        WebElement apiYear = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(elementToBeClickable(By.id("api_year")));
+        WebElement directorName = new WebDriverWait(driver, Duration.ofSeconds(9))
+                .until(elementToBeClickable(By.id("api_director")));
+
+        boolean emptyFields = false;
+        String[] filmsInfoValue = new String[]{apiTitle.getText(), apiYear.getText(), directorName.getText()};
+
+        for (int i = 0; i < 3; i++) {
+            if (filmsInfoValue[i] == "undefined") {
+                emptyFields = true;
+            }
+        }
+        Assert.assertEquals(emptyFields, false);
     }
 }
